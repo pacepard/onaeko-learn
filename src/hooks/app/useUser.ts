@@ -13,7 +13,7 @@ import { IListQuery } from '@/utils/interfaces';
 import { ICollection } from '@/context/helpers/interface';
 import useNetwork from '../shared/useNetwork';
 import useAuth from './useAuth';
-import { pacepardAPIClient } from '@/api/_base/config';
+import { onaekoAPIClient } from '@/api/_base/config';
 
 interface ISendUsersUpdate {
     title: string;
@@ -93,7 +93,7 @@ const useUser = () => {
         async (data: IListQuery, all: boolean = false) => {
             setLoading({ option: 'resource', type: GET_USERS });
 
-            const response = await pacepardAPIClient().user.getUsers(data, all);
+            const response = await onaekoAPIClient().user.getUsers(data, all);
 
             if (response.error === false) {
                 if (response.status === 200) {
@@ -120,7 +120,7 @@ const useUser = () => {
                 });
 
                 if (response.status === 401) {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                 } else if (
                     response.message &&
                     response.message === 'Error: Network Error'
@@ -146,7 +146,7 @@ const useUser = () => {
 
             setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().user.getUser(userId);
+            const response = await onaekoAPIClient().user.getUser(userId);
 
             if (response.error === false) {
                 setResource(GET_LOGGEDIN_USER, response.data);
@@ -164,7 +164,7 @@ const useUser = () => {
                 });
 
                 if (response.status === 401) {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                 } else if (
                     response.message &&
                     response.message === 'Error: Network Error'
@@ -188,7 +188,7 @@ const useUser = () => {
         async (data: IListQuery) => {
             setLoading({ option: 'resource', type: GET_TALENTS });
 
-            const response = await pacepardAPIClient().user.getTalents(data);
+            const response = await onaekoAPIClient().user.getTalents(data);
 
             if (response.error === false) {
                 if (response.status === 200) {
@@ -215,7 +215,7 @@ const useUser = () => {
                 });
 
                 if (response.status === 401) {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                 } else if (
                     response.message &&
                     response.message === 'Error: Network Error'
@@ -243,7 +243,7 @@ const useUser = () => {
 
             setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().user.getTalent(userId);
+            const response = await onaekoAPIClient().user.getTalent(userId);
 
             if (response.error === false) {
                 setResource(GET_TALENT, response.data);
@@ -261,7 +261,7 @@ const useUser = () => {
                 });
 
                 if (response.status === 401) {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                 } else if (
                     response.message &&
                     response.message === 'Error: Network Error'
@@ -286,7 +286,7 @@ const useUser = () => {
             setLoading({ option: 'loader' });
 
             const response =
-                await pacepardAPIClient().user.sendUsersUpdate(data);
+                await onaekoAPIClient().user.sendUsersUpdate(data);
 
             if (response.error === false) {
                 unsetLoading({ option: 'loader', message: 'successful' });
@@ -299,7 +299,7 @@ const useUser = () => {
                 });
 
                 if (response.status === 401) {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                 } else if (
                     response.message &&
                     response.message === 'Error: Network Error'
@@ -327,7 +327,7 @@ const useUser = () => {
         async (data: IInviteTalent) => {
             setLoading({ option: 'loader' });
 
-            const response = await pacepardAPIClient().user.inviteTalent(data);
+            const response = await onaekoAPIClient().user.inviteTalent(data);
 
             if (response.error === false) {
                 unsetLoading({ option: 'loader', message: 'successful' });
@@ -340,7 +340,7 @@ const useUser = () => {
                 });
 
                 if (response.status === 401) {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                 } else if (
                     response.message &&
                     response.message === 'Error: Network Error'
