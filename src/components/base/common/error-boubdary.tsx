@@ -2,7 +2,7 @@ import { type ReactNode, useState } from 'react';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import { Link, useRouteError } from 'react-router-dom';
 import { AlertCircle, Home, RefreshCw } from 'lucide-react';
-import { Button, toast } from '@pacepard/ui';
+import { Button, toast } from '@onaeko/ui';
 import { RouteURL } from '@/routes/paths';
 import { NODE_ENV, NodeEnv } from '@/utils/enums.util';
 
