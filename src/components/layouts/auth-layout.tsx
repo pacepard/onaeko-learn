@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react';
 import AuthHeader from '../blocks/auth/auth-header';
 import { TermsAndPrivacy } from '../blocks/auth/terms-and-privacy';
 // Removed unused import
-import PacepardIcon from '../common/LogoIcon';
-import { Toaster } from '@pacepard/ui/components/sonner';
+import OnaekoIcon from '../common/LogoIcon';
+import { Toaster } from '@onaeko/ui/components/sonner';
 
 interface IAuthLayout {
     title: string;
@@ -42,7 +42,7 @@ export const AuthLayout = (props: IAuthLayout) => {
         <>
             <div className="min-h-screen w-full flex items-center justify-center p-4">
                 <div className={`${maxWidthClass} w-full`}>
-                    <PacepardIcon className="h-20 w-20 text-green-500 ml-5" />
+                    <OnaekoIcon className="h-20 w-20 text-green-500 ml-5" />
 
                     {!hideHeaderOnSuccess && (
                         <AuthHeader
@@ -68,7 +68,7 @@ export const AuthLayout = (props: IAuthLayout) => {
 // // src/components/layouts/auth-layout.tsx
 // import React, { ReactNode } from "react";
 // import AuthHeader from "../shared/auth/auth-header";
-// import PacepardIcon from "../shared/common/LogoIcon";
+// import OnaekoIcon from "../shared/common/LogoIcon";
 
 // interface IAuthLayout {
 //   title: string;
