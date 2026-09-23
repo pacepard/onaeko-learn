@@ -1,29 +1,41 @@
 /** Browser / React Router paths for learn.onaeko.com */
 
-const AppURL = import.meta.env.VITE_APP_URL ?? '';
+const AppURL = import.meta.env?.VITE_APP_URL ?? '';
 
 export const RouteURL = {
-    // Root
     home: '/',
-
-    // Onboarding (app entry — no auth screens in Learn)
-    onboarding: '/onboarding',
-    onboardingBasicInfo: '/onboarding/basic-info',
-    onboardingUserInfo: '/onboarding/user-info',
-    onboardingBusinessInfo: '/onboarding/business-info',
-    onboardingCreateWorkspace: '/onboarding/create-workspace',
-    onboardingInviteTeammates: '/onboarding/invite-teammates',
-
-    // Post-onboarding learn home (placeholder destination)
-    learn: '/learn',
     programs: '/programs',
-
-    // Kept for shared utils / API callbacks (not mounted as auth UI)
+    programHome: (slug: string) => `/programs/${slug}`,
+    eventClass: (slug: string, eventId: string) =>
+        `/programs/${slug}/events/${eventId}`,
+    recordings: (slug: string) => `/programs/${slug}/recordings`,
+    courses: '/courses',
+    courseHome: (slug: string) => `/courses/${slug}`,
+    scholarship: (slug: string) => `/courses/${slug}/scholarship`,
+    moduleClass: (slug: string, moduleId: string) =>
+        `/courses/${slug}/modules/${moduleId}`,
     login: '/login',
     logout: '/logout',
-    register: '/register',
-    myAccount: '/learn',
-
-    regCallback: `${AppURL}/onboarding`,
-    subCallback: `${AppURL}/learn`,
+    myAccount: '/my-account',
+    learn: '/',
+    onboarding: '/__leftover/onboarding',
+    onboardingBasicInfo: '/__leftover/onboarding/basic-info',
+    onboardingUserInfo: '/__leftover/onboarding/user-info',
+    onboardingBusinessInfo: '/__leftover/onboarding/business-info',
+    onboardingCreateWorkspace: '/__leftover/onboarding/create-workspace',
+    onboardingInviteTeammates: '/__leftover/onboarding/invite-teammates',
+    regCallback: `${AppURL}/`,
+    subCallback: `${AppURL}/`,
 };
+
+export const LEARN_ROUTE_PATHS = {
+    home: '/',
+    programs: '/programs',
+    programHome: '/programs/:slug',
+    eventClass: '/programs/:slug/events/:eventId',
+    recordings: '/programs/:slug/recordings',
+    courses: '/courses',
+    courseHome: '/courses/:slug',
+    scholarship: '/courses/:slug/scholarship',
+    moduleClass: '/courses/:slug/modules/:moduleId',
+} as const;
