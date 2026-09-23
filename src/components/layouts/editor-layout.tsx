@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { storage, UserContext } from '@pacepard/sdk';
-import { Toaster } from '@pacepard/ui/components/sonner';
-import { cn } from '@pacepard/ui/lib/utils';
+import { storage, UserContext } from '@onaeko/sdk';
+import { Toaster } from '@onaeko/ui/components/sonner';
+import { cn } from '@onaeko/ui/lib/utils';
 import EditorHeader from '../blocks/editor/header';
 
 interface IEditorLayout {
