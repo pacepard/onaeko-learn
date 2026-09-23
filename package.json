@@ -1,13 +1,13 @@
 {
-    "name": "@pacepard/learn",
+    "name": "@onaeko/learn",
     "private": true,
     "version": "0.0.0",
     "type": "module",
     "description": "Onaeko Learn — courses and learning experiences",
     "packageManager": "pnpm@9.15.4",
-    "engines": {
-        "node": ">=20.19"
-    },
+  "engines": {
+    "node": "20.x"
+  },
     "scripts": {
         "dev": "vite --port 5402 --strictPort",
         "build": "tsc -b && vite build",
@@ -15,11 +15,12 @@
         "lint": "oxlint",
         "preview": "vite preview --port 5402 --strictPort",
         "format": "prettier --write .",
-        "format:check": "prettier --check ."
+        "format:check": "prettier --check .",
+        "test": "npx --yes tsx --test src/api/paths.test.ts src/utils/scholarship-map.test.ts src/utils/dev-mock.util.test.ts"
     },
     "dependencies": {
         "@hookform/resolvers": "^5.7.1",
-        "@pacepard/ui": "^0.3.0",
+        "@onaeko/ui": "^0.3.0",
         "axios": "^1.11.0",
         "jquery": "^4.0.0",
         "lucide-react": "^0.539.0",
