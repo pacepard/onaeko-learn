@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@pacepard/ui/button';
-import { Input } from '@pacepard/ui/input';
-import { Label } from '@pacepard/ui/label';
-import { Checkbox } from '@pacepard/ui/checkbox';
+import { Button } from '@onaeko/ui/button';
+import { Input } from '@onaeko/ui/input';
+import { Label } from '@onaeko/ui/label';
+import { Checkbox } from '@onaeko/ui/checkbox';
 import { Link, Plus, X } from 'lucide-react';
-import { toast } from '@pacepard/ui';
+import { toast } from '@onaeko/ui';
 import { inviteTeammatesSchema } from './validation';
-import { cn } from '@pacepard/ui';
-import { PacepardAPI } from '@/api/base/config';
+import { cn } from '@onaeko/ui';
+import { OnaekoAPI } from '@/api/base/config';
 import storage from '@/services/storage';
 
 const InviteTeammates: React.FC = () => {
@@ -56,7 +56,7 @@ const InviteTeammates: React.FC = () => {
 
             try {
                 const statusResponse =
-                    await PacepardAPI.user.getOnboardingStatus();
+                    await OnaekoAPI.user.getOnboardingStatus();
 
                 if (statusResponse.error === false && statusResponse.data) {
                     const statusData = statusResponse.data as any;
