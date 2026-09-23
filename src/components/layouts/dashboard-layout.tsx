@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { storage, UserContext } from '@pacepard/sdk';
-import { SidebarProvider } from '@pacepard/ui/components/sidebar';
+import { storage, UserContext } from '@onaeko/sdk';
+import { SidebarProvider } from '@onaeko/ui/components/sidebar';
 import AppSidebar from '../blocks/navigation/side-nav';
 import TopBar from '../blocks/navigation/TopBar';
-import { Toaster } from '@pacepard/ui/components/sonner';
-import { cn } from '@pacepard/ui/lib/utils';
+import { Toaster } from '@onaeko/ui/components/sonner';
+import { cn } from '@onaeko/ui/lib/utils';
 
 interface DashboardLayoutProps {
     component: React.ReactElement;
