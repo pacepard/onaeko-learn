@@ -1,6 +1,6 @@
 import useContextType from '@/context/user/useContextType';
 import { useCallback, useEffect, useState } from 'react';
-import { pacepardAPIClient } from '@/api/_base/config';
+import { onaekoAPIClient } from '@/api/_base/config';
 import { useAuthPlatform } from '@/auth/platform/context';
 
 import {
@@ -38,7 +38,7 @@ const useAuth = () => {
             if (isPublic) {
                 navigation.navigate(pathname);
             } else {
-                pacepardAPIClient().auth.logout();
+                onaekoAPIClient().auth.logout();
                 navigation.navigate(routes.login);
             }
         } else {
@@ -59,7 +59,7 @@ const useAuth = () => {
         (roles: Array<string>) => {
             const pathname = navigation.getPathname();
             if (!session.checkToken() || !session.checkUserId()) {
-                pacepardAPIClient().auth.logout();
+                onaekoAPIClient().auth.logout();
                 navigation.navigate(routes.login);
             } else {
                 const ut = cookieService.getUserType();
@@ -68,7 +68,7 @@ const useAuth = () => {
                 if (token) {
                     if (ut && !roles.includes(ut)) {
                         navigation.navigate(routes.login);
-                        pacepardAPIClient().auth.logout();
+                        onaekoAPIClient().auth.logout();
                     } else {
                         setIsLoggedIn(true);
                         ui.onSessionRestored();
@@ -81,7 +81,7 @@ const useAuth = () => {
                         }
                     }
                 } else {
-                    pacepardAPIClient().auth.logout();
+                    onaekoAPIClient().auth.logout();
                     navigation.navigate(routes.login);
                 }
             }
@@ -90,7 +90,7 @@ const useAuth = () => {
     );
 
     const login = async (data: LoginDTO) => {
-        const response = await pacepardAPIClient().auth.loginUser(data);
+        const response = await onaekoAPIClient().auth.loginUser(data);
 
         if (!response.error) {
             if (response.status === 200) {
@@ -198,7 +198,7 @@ const useAuth = () => {
     };
 
     const logout = async () => {
-        await pacepardAPIClient().auth.logout();
+        await onaekoAPIClient().auth.logout();
         session.clearSession();
         userPrefs.clearInContext();
 
@@ -210,7 +210,7 @@ const useAuth = () => {
         async (data: LogoutDTO) => {
             void ui.setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().auth.logoutUser({
+            const response = await onaekoAPIClient().auth.logoutUser({
                 userId: data.userId || session.getUserId(),
             });
             if (!response.error) {
@@ -234,7 +234,7 @@ const useAuth = () => {
         async (data: RegisterUserDTO) => {
             void ui.setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().auth.registerUser(data);
+            const response = await onaekoAPIClient().auth.registerUser(data);
 
             if (!response.error) {
                 setIsLoggedIn(false);
@@ -253,7 +253,7 @@ const useAuth = () => {
         async (data: VerifyOtpDTO) => {
             void ui.setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().auth.verifyOTP({
+            const response = await onaekoAPIClient().auth.verifyOTP({
                 email: data.email,
                 otp: data.otp,
                 otpType: data.otpType,
@@ -274,7 +274,7 @@ const useAuth = () => {
         async (data: ActivateDTO) => {
             void ui.setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().auth.activateUser({
+            const response = await onaekoAPIClient().auth.activateUser({
                 otp: data.otp,
                 otpType: data.otpType,
                 email: data.email,
@@ -296,7 +296,7 @@ const useAuth = () => {
     const resendOtp = useCallback(
         async (data: ResendOtpDTO) => {
             const { email, otpType } = data;
-            const response = await pacepardAPIClient().auth.resendOTP({
+            const response = await onaekoAPIClient().auth.resendOTP({
                 email,
                 otpType,
             });
@@ -314,7 +314,7 @@ const useAuth = () => {
         async (data: ForgotPasswordDTO) => {
             void ui.setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().auth.forgotPassword({
+            const response = await onaekoAPIClient().auth.forgotPassword({
                 email: data.email,
             });
 
@@ -336,7 +336,7 @@ const useAuth = () => {
 
             void ui.setLoading({ option: 'default' });
 
-            const response = await pacepardAPIClient().auth.resetPassword({
+            const response = await onaekoAPIClient().auth.resetPassword({
                 newPassword,
                 email,
             });
