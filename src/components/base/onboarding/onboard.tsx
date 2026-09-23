@@ -1,15 +1,15 @@
 import { RouteURL } from '@/routes/paths';
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@pacepard/ui/button';
-import { Card, CardContent } from '@pacepard/ui/card';
+import { Button } from '@onaeko/ui/button';
+import { Card, CardContent } from '@onaeko/ui/card';
 import { CheckCircle2, Circle } from 'lucide-react';
-import { cn } from '@pacepard/ui';
+import { cn } from '@onaeko/ui';
 import { UserType } from '@/utils/enums.util';
 import UserContext from '@/context/user/userContext';
 import storage from '@/services/storage';
-import { PacepardAPI } from '@/api/base/config';
-import { toast } from '@pacepard/ui';
+import { OnaekoAPI } from '@/api/base/config';
+import { toast } from '@onaeko/ui';
 import { getOnboardingRoute } from '@/utils/onboarding';
 
 interface UserTypeOption {
@@ -64,7 +64,7 @@ const Onboard: React.FC = () => {
 
             try {
                 const statusResponse =
-                    await PacepardAPI.user.getOnboardingStatus();
+                    await OnaekoAPI.user.getOnboardingStatus();
 
                 if (statusResponse.error === false && statusResponse.data) {
                     const statusData = statusResponse.data as any;
@@ -105,7 +105,7 @@ const Onboard: React.FC = () => {
                     return;
                 }
 
-                const response = await PacepardAPI.user.setUserType({
+                const response = await OnaekoAPI.user.setUserType({
                     userType: selectedType,
                 });
 
