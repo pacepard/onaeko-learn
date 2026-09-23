@@ -1,6 +1,7 @@
 import cookieService from './cookie.service';
 import type { IStorage } from '@/utils/interfaces.util';
 import { logger } from '@/utils/logger.utl';
+import { DEV_MOCK_TOKEN, USE_MOCKS } from '@/utils/dev-mock.util';
 
 const storeAuth = (
     token: string,
@@ -40,10 +41,37 @@ const storeAuth = (
     });
 };
 
+const hydrateAuthFromCookie = () => {
+    if (typeof localStorage === 'undefined') {
+        return;
+    }
+    const existing = localStorage.getItem('token');
+    if (existing && existing.split('.').length === 3) {
+        return;
+    }
+    const fromCookie = cookieService.getData({ key: 'token', parse: false });
+    if (typeof fromCookie !== 'string' || fromCookie.split('.').length !== 3) {
+        return;
+    }
+    localStorage.setItem('token', fromCookie);
+    const userId = cookieService.getData({ key: 'userId', parse: false });
+    const userType = cookieService.getData({ key: 'userType', parse: false });
+    const userEmail = cookieService.getData({ key: 'userEmail', parse: false });
+    if (userId) localStorage.setItem('userId', String(userId));
+    if (userType) localStorage.setItem('role', String(userType));
+    if (userEmail) localStorage.setItem('userEmail', String(userEmail));
+};
+
 const checkToken = () => {
+    hydrateAuthFromCookie();
     const token = localStorage.getItem('token');
     if (!token || token.trim() === '') {
         return false;
+    }
+
+    // P083 mock rail plants a non-JWT placeholder when USE_MOCKS is on.
+    if (USE_MOCKS && token === DEV_MOCK_TOKEN) {
+        return true;
     }
 
     // Basic JWT token validation (should have 3 parts separated by dots)
