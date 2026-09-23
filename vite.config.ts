@@ -7,8 +7,22 @@ import { defineConfig } from 'vite';
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
+const onaekoUiShim = () => {
+    const target = path.resolve(rootDir, '../onaeko-ui/shims/catchall.tsx');
+    return {
+        name: 'onaeko-ui-shim',
+        enforce: 'pre' as const,
+        resolveId(id: string) {
+            if (id === '@onaeko/ui' || id.startsWith('@onaeko/ui/')) {
+                return target;
+            }
+            return null;
+        },
+    };
+};
+
 export default defineConfig({
-    plugins: [react(), tailwindcss()],
+    plugins: [onaekoUiShim(), react(), tailwindcss()],
     resolve: {
         alias: {
             '@': path.resolve(rootDir, 'src'),
@@ -19,7 +33,7 @@ export default defineConfig({
         port: 5402,
         strictPort: true,
         fs: {
-            allow: [rootDir, path.resolve(rootDir, '../pacepard-ui')],
+            allow: [rootDir, path.resolve(rootDir, '../onaeko-ui')],
         },
     },
     preview: {
