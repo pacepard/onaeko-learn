@@ -1,28 +1,61 @@
 import type { IRoute } from '@/utils/interfaces.util';
-import { RouteURL } from './paths';
-import { Navigate } from 'react-router-dom';
+import { LearnLayout } from '@/components/layouts/learn-layout';
+import Dashboard from '@/app/Dashboard';
+import CatalogIndex from '@/app/CatalogIndex';
+import ProgramHome from '@/app/ProgramHome';
+import SessionClass from '@/app/SessionClass';
+import Recordings from '@/app/Recordings';
+import CourseHome from '@/app/CourseHome';
+import ScholarshipPage from '@/app/ScholarshipPage';
 
-/** Learn product routes — post-onboarding placeholders (no auth). */
 const learnRoutes: Array<IRoute> = [
     {
-        name: 'learn-home',
-        path: RouteURL.learn,
-        element: (
-            <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-8 text-center">
-                <h1 className="text-3xl font-semibold">Welcome to Onaeko Learn</h1>
-                <p className="text-muted-foreground max-w-md">
-                    Onboarding complete. Learning experiences will live here.
-                </p>
-                <a className="text-primary underline" href={RouteURL.onboarding}>
-                    Back to onboarding
-                </a>
-            </div>
-        ),
-    },
-    {
-        name: 'programs',
-        path: RouteURL.programs,
-        element: <Navigate to={RouteURL.learn} replace />,
+        name: 'learn-shell',
+        path: '/',
+        element: <LearnLayout />,
+        children: [
+            { name: 'home', index: true, element: <Dashboard /> },
+            {
+                name: 'programs',
+                path: 'programs',
+                element: <CatalogIndex kind="program" />,
+            },
+            {
+                name: 'program-home',
+                path: 'programs/:slug',
+                element: <ProgramHome />,
+            },
+            {
+                name: 'event-class',
+                path: 'programs/:slug/events/:eventId',
+                element: <SessionClass kind="event" />,
+            },
+            {
+                name: 'recordings',
+                path: 'programs/:slug/recordings',
+                element: <Recordings />,
+            },
+            {
+                name: 'courses',
+                path: 'courses',
+                element: <CatalogIndex kind="course" />,
+            },
+            {
+                name: 'course-home',
+                path: 'courses/:slug',
+                element: <CourseHome />,
+            },
+            {
+                name: 'scholarship',
+                path: 'courses/:slug/scholarship',
+                element: <ScholarshipPage />,
+            },
+            {
+                name: 'module-class',
+                path: 'courses/:slug/modules/:moduleId',
+                element: <SessionClass kind="module" />,
+            },
+        ],
     },
 ];
 
