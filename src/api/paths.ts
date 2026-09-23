@@ -1,10 +1,9 @@
 /**
- * Backend HTTP paths (axios baseURL + path).
- * Aligned with pacepard-api / @pacepard/sdk — not browser routes.
+ * Backend HTTP paths. Academy MLP uses the enroll/programs/courses keys.
+ * Leftover identity keys remain so unused leftover modules still typecheck.
  */
 
 export const ApiPath = {
-    // Auth
     login: '/auth/login',
     register: '/auth/register',
     activate: '/auth/activate',
@@ -15,21 +14,15 @@ export const ApiPath = {
     resendOtp: '/auth/resend-otp',
     token: '/auth/token',
     logout: '/auth/logout',
-    loggedInUser: '/auth/user',
+    loggedInUser: '/user/',
     continue: '/auth/continue',
-
-    // OAuth
     oauthGoogle: '/auth/oauth/google',
     oauthGithub: '/auth/oauth/github',
     oauthCallback: '/auth/oauth/callback',
-
-    // Users / talents
     users: '/users',
-    user: '/user',
+    user: '/user/',
     talents: '/talents',
     updatePassword: '/users/update-password',
-
-    // Onboarding (user resource)
     onboardUserType: '/user/onboard/user-type',
     onboardBasicInfo: '/user/onboard/basic-info',
     onboardUserInfo: '/user/onboard/user-info',
@@ -37,8 +30,6 @@ export const ApiPath = {
     onboardBusinessInfo: '/user/onboard/business-info',
     onboardComplete: '/user/onboard/complete',
     onboardStatus: '/user/onboard/status',
-
-    // Account
     account: '/account',
     profile: '/account/profile',
     security: '/account/security',
@@ -48,15 +39,40 @@ export const ApiPath = {
     paymentMethods: '/account/billing/payment-methods',
     invoices: '/account/billing/invoices',
     deleteAccount: '/account',
-
-    // Billing catalog
     plans: '/plans',
     subscriptions: '/subscriptions',
     transactions: '/transactions',
-
-    // Workspace / storage (onboarding)
     workspace: '/workspace',
     storageUpload: '/storage/upload',
-} as const;
 
-export type ApiPathKey = keyof typeof ApiPath;
+    programs: '/programs/',
+    programSlug: (slug: string) => `/programs/slug/${slug}`,
+    programById: (id: string) => `/programs/${id}`,
+    programEvents: (programId: string) => `/programs/${programId}/events`,
+    eventDetail: (programId: string, eventId: string) =>
+        `/programs/${programId}/events/${eventId}`,
+    eventJoin: (programId: string, eventId: string) =>
+        `/programs/${programId}/events/${eventId}/join`,
+    eventCalendar: (programId: string, eventId: string) =>
+        `/programs/${programId}/events/${eventId}/calendar`,
+    courses: '/courses/',
+    courseSlug: (slug: string) => `/courses/slug/${slug}`,
+    courseById: (id: string) => `/courses/${id}`,
+    courseModules: (courseId: string) => `/courses/${courseId}/modules`,
+    moduleDetail: (courseId: string, moduleId: string) =>
+        `/courses/${courseId}/modules/${moduleId}`,
+    moduleJoin: (courseId: string, moduleId: string) =>
+        `/courses/${courseId}/modules/${moduleId}/join`,
+    moduleCalendar: (courseId: string, moduleId: string) =>
+        `/courses/${courseId}/modules/${moduleId}/calendar`,
+    enroll: '/enroll/',
+    enrollMe: '/enroll/me',
+    enrollDashboard: '/enroll/me/dashboard',
+    enrollRecommended: '/enroll/recommended',
+    enrollPayment: (enrollmentId: string) =>
+        `/enroll/me/${enrollmentId}/payment`,
+    enrollOne: (targetType: string, targetId: string) =>
+        `/enroll/me/${targetType}/${targetId}`,
+    scholarship: '/enroll/scholarship',
+    scholarshipMe: '/enroll/scholarship/me',
+} as const;
