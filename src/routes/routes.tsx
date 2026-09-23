@@ -1,23 +1,17 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import type { IRoute } from '@/utils/interfaces.util';
-import onboardingRoutes from './onboarding.route';
-import baseRoutes from './base.route';
 import learnRoutes from './learn.route';
+import ErrorPage from '@/app/Error';
 
-const appRoutes: Array<IRoute> = [
-    ...onboardingRoutes,
-    ...baseRoutes,
-    ...learnRoutes,
-];
+const appRoutes: Array<IRoute> = [...learnRoutes];
 
 function renderRoutes(routes: Array<IRoute>) {
     return routes.map((route) => {
-        const element =
-            route.element ??
-            (route.redirect ? <Navigate to={route.redirect} replace /> : undefined);
-
+        if (route.index) {
+            return <Route key={route.name} index element={route.element} />;
+        }
         return (
-            <Route key={route.name} path={route.path} element={element}>
+            <Route key={route.name} path={route.path} element={route.element}>
                 {route.children ? renderRoutes(route.children) : null}
             </Route>
         );
@@ -25,7 +19,12 @@ function renderRoutes(routes: Array<IRoute>) {
 }
 
 function MainRoutes() {
-    return <Routes>{renderRoutes(appRoutes)}</Routes>;
+    return (
+        <Routes>
+            {renderRoutes(appRoutes)}
+            <Route path="*" element={<ErrorPage />} />
+        </Routes>
+    );
 }
 
 export default MainRoutes;
